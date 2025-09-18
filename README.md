@@ -1,6 +1,8 @@
 # Handwritten Math Equation Solver
 
-![Project image](./image.png)
+<img width="656" height="831" alt="output" src="https://github.com/user-attachments/assets/4498cbb3-b319-482f-a461-0d119f50b229" />
+
+
 
 ## Overview
 
@@ -37,7 +39,7 @@ Note: The combined pipeline accuracy on end-to-end equation solving depends on s
 1. Create and activate a virtual environment (optional but recommended):
 
 ```bash
-cd hwdr
+cd (main folder)
 python -m venv .venv
 source .venv/bin/activate
 ```
