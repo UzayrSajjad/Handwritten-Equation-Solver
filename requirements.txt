@@ -1,8 +1,7 @@
 tensorflow==2.20.0
 streamlit
 streamlit-drawable-canvas==0.9.3
-opencv-python==4.7.0.68
-numpy<2
+opencv-python
 pandas
 matplotlib
 scikit-learn
