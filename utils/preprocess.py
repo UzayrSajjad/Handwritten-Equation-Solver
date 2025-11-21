@@ -1,14 +1,36 @@
 import cv2
 import numpy as np
 from tensorflow.keras.models import load_model  # type: ignore
-import streamlit as st 
+import streamlit as st
+from pathlib import Path
+import traceback
 
 labels = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: '+', 11: '/', 12: '*', 13: '-'}
 
-model = load_model('../Models/cnn_model.h5')  
+# Resolve model path for new structure
+project_root = Path(__file__).resolve().parents[1]  # HandyMath/
+model_path = project_root / 'model' / 'cnn_model.h5'
+
+model = None
+try:
+    if model_path.exists():
+        model = load_model(str(model_path))
+    else:
+        st.error(f"Model file not found at {model_path}")
+except Exception as e:
+    st.error(f"Failed to load model from {model_path}: {e}")
+    st.text(traceback.format_exc())
+
+if model is None:
+    st.error("Model not found or failed to load. Expected at: Models/cnn_model.h5")
 
 
 def predict(image_path):
+    # Early guard: ensure model was loaded
+    if model is None:
+        st.error("Model is not loaded. Prediction cannot proceed.")
+        return "Error", "Model not loaded"
+
     try:
         image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
         

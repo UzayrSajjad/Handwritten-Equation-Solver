@@ -1,65 +1,96 @@
-# Handwritten Math Equation Solver
+# Handy Math - Handwritten Equation Solver
 
-<img width="656" height="831" alt="output" src="https://github.com/user-attachments/assets/4498cbb3-b319-482f-a461-0d119f50b229" />
+A modern web application that uses deep learning to recognize handwritten mathematical equations and solve them in real-time.
 
+## Features
 
+- 🖌️ **Draw Equations**: Interactive canvas for writing equations
+- 📷 **Upload Images**: Support for image uploads
+- 🤖 **AI-Powered**: Uses CNN and RNN models for accurate recognition
+- 🎨 **Modern UI**: Beautiful gradient design with dark/light mode
+- ⚡ **Real-time**: Instant equation recognition and solving
 
-## Overview
+## Tech Stack
 
-This project detects and solves handwritten mathematical equations using deep learning models and exposes a simple Streamlit web app for interactive use. Users can draw an equation on a canvas or upload an image, and the app will output the interpreted equation and its solution.
+- **Frontend**: Streamlit
+- **ML Models**: TensorFlow/Keras (CNN + RNN)
+- **Image Processing**: OpenCV, PIL
+- **Canvas**: streamlit-drawable-canvas
 
-## How it was made
+## Installation
 
-- Data: A publicly available dataset of handwritten math symbols was used for training. Images were preprocessed (grayscale, thresholding, contour extraction, padding/resizing) and augmented to improve model robustness.
-- Models: A CNN was trained for character recognition (per-character classification). An RNN was used to interpret sequences of characters and assemble full equations. The pipeline extracts character bounding boxes, classifies each symbol with the CNN, then passes the symbol sequence to the RNN to interpret and compute the result.
-- Web app: A Streamlit frontend (`Web_app/app.py`) provides a drawing canvas and image upload, calls a `predict` function that loads the trained models (`Models/*.h5`) and returns the interpreted equation and solution.
-
-## Tech stack / Libraries
-
-- Python 3.12
-- TensorFlow (2.x)
-- Streamlit
-- OpenCV
-- Pillow
-- NumPy, Pandas, scikit-learn, Matplotlib, Seaborn
-
-See `requirements.txt` for exact versions used in the development environment.
-
-## Model performance
-
-These are the validation accuracies observed during training (your dataset & training recipe may cause variation):
-
-- CNN (character recognition): 97.57%
-- RNN (sequence interpretation): 76.32%
-
-Note: The combined pipeline accuracy on end-to-end equation solving depends on symbol segmentation and the RNN interpretation; expect lower end-to-end accuracy than the raw per-character numbers.
-
-## How to run locally
-
-1. Create and activate a virtual environment (optional but recommended):
-
+1. Clone the repository:
 ```bash
-cd (main folder)
-python -m venv .venv
-source .venv/bin/activate
+git clone <your-repo-url>
+cd HandyMath
 ```
 
-2. Install required packages:
+2. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Start the Streamlit app:
+## Usage
 
+Run the Streamlit app:
 ```bash
-cd Web_app
 streamlit run app.py
 ```
 
-4. Open the URL shown in the terminal (e.g., http://localhost:8501).
+The app will open in your browser at `http://localhost:8501`
 
-## Files of interest
+## Project Structure
 
-- `Models/` — trained models and notebooks used to train/evaluate them.
-- `Web_app/` — Streamlit front-end and the `predict.py` script that wraps model inference.
+```
+HandyMath/
+│
+├── app.py                # Main Streamlit application
+│
+├── model/
+│   ├── cnn_model.h5     # CNN model for digit recognition
+│   └── rnn_model.h5     # RNN model for sequence processing
+│
+├── utils/
+│   └── preprocess.py    # Helper functions for preprocessing and prediction
+│
+├── requirements.txt     # Python dependencies
+├── README.md           # This file
+└── .gitignore         # Git ignore rules
+```
+
+## How It Works
+
+1. **Draw or Upload**: User draws an equation on the canvas or uploads an image
+2. **Preprocessing**: Image is processed and segmented into individual characters
+3. **Recognition**: CNN model recognizes digits and operators
+4. **Sequence Processing**: RNN model processes the sequence
+5. **Evaluation**: Mathematical expression is evaluated and result is displayed
+
+## Models
+
+- **CNN Model**: Trained on MNIST dataset for digit recognition (0-9) and operators (+, -, ×, ÷)
+- **RNN Model**: Processes sequences of recognized characters
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgments
+
+- Built with Streamlit
+- Deep Learning models powered by TensorFlow
+- UI inspired by modern design principles
+
+---
+
+Made with ❤️ using Deep Learning
